@@ -15,6 +15,16 @@ module.exports = function (options = {}) {
         password: data.googleId,
         firstName: data.google.profile.name.givenName,
         lastName: data.google.profile.name.familyName,
+        photo: data.google.profile.photos[0].value,
+      };
+      break;
+    case 'rest':
+      context.data = {
+        email: data.email,
+        password: data.password,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        photo: '',
       };
       break;
     }

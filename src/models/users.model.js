@@ -6,7 +6,7 @@ const DataTypes = Sequelize.DataTypes;
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
   const users = sequelizeClient.define('users', {
-  
+
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -16,10 +16,21 @@ module.exports = function (app) {
       type: DataTypes.STRING,
       allowNull: false
     },
-  
-  
-    googleId: { type: Sequelize.STRING },
-  
+    googleId: {
+      type: Sequelize.STRING,
+    },
+    firstName: {
+      type: Sequelize.TEXT,
+      allowNull: false,
+    },
+    lastName: {
+      type: Sequelize.TEXT,
+      allowNull: false,
+    },
+    photo: {
+      type: Sequelize.TEXT,
+      allowNull: true,
+    },
   }, {
     hooks: {
       beforeCount(options) {

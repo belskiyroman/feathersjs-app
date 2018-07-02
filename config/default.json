@@ -35,7 +35,7 @@
       "clientSecret": "hzAgaZpogvvE06e8qX4wrK9Y",
       "successRedirect": "/",
       "scope": [
-        "profile openid email"
+          "profile openid email"
       ]
     },
     "cookie": {

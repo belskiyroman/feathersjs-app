@@ -6,12 +6,14 @@ const {
 
 const userAuthAdapter = require('../../hooks/user-auth-adapter');
 
+const userUpsert = require('../../hooks/user-upsert');
+
 module.exports = {
   before: {
     all: [],
     find: [ authenticate('jwt') ],
     get: [ authenticate('jwt') ],
-    create: [userAuthAdapter(), hashPassword()],
+    create: [userAuthAdapter(), hashPassword(), userUpsert({ google: 'googleId' })],
     update: [ hashPassword(),  authenticate('jwt') ],
     patch: [ hashPassword(),  authenticate('jwt') ],
     remove: [ authenticate('jwt') ]

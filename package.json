@@ -23,9 +23,10 @@
   },
   "scripts": {
     "test": "npm run eslint && npm run mocha",
-    "eslint": "eslint src/. test/. --config .eslintrc.json",
+    "test:eslint": "./node_modules/.bin/eslint src/. test/. --config .eslintrc.json",
+    "test:mocha": "./node_modules/.bin/mocha test/ --recursive --exit",
     "start": "node src/",
-    "mocha": "mocha test/ --recursive --exit"
+    "start:dev": "./node_modules/.bin/nodemon src/"
   },
   "dependencies": {
     "@feathersjs/authentication": "^2.1.6",
@@ -44,12 +45,14 @@
     "passport-google-oauth20": "^1.0.0",
     "pg": "^7.4.1",
     "sequelize": "^4.33.0",
+    "sequelize-cli": "^4.0.0",
     "serve-favicon": "^2.4.5",
     "winston": "^3.0.0"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
     "mocha": "^5.2.0",
+    "nodemon": "^1.17.5",
     "request": "^2.87.0",
     "request-promise": "^4.2.2"
   }

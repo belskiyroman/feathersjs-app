@@ -3,9 +3,11 @@ const jwt = require('@feathersjs/authentication-jwt');
 const local = require('@feathersjs/authentication-local');
 const oauth2 = require('@feathersjs/authentication-oauth2');
 const GoogleStrategy = require('passport-google-oauth20');
+const oauthHandler = require('./utils/oauth-handler');
 
 module.exports = function (app) {
   const config = app.get('authentication');
+  const handler = oauthHandler(app);
 
   // Set up authentication with the secret
   app.configure(authentication(config));
@@ -14,7 +16,8 @@ module.exports = function (app) {
 
   app.configure(oauth2(Object.assign({
     name: 'google',
-    Strategy: GoogleStrategy
+    Strategy: GoogleStrategy,
+    handler: handler(config.google.successRedirect),
   }, config.google)));
 
   // The `authentication` service is used to create a JWT.

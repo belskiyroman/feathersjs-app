@@ -13,8 +13,8 @@ module.exports = {
     all: [],
     find: [ authenticate('jwt') ],
     get: [ authenticate('jwt') ],
-    create: [userAuthAdapter(), hashPassword(), userUpsert({ google: 'googleId' })],
-    update: [ hashPassword(),  authenticate('jwt') ],
+    create: [ userAuthAdapter(), hashPassword(), userUpsert({ google: 'googleId' }) ],
+    update: [ userAuthAdapter(), hashPassword(), userUpsert({ google: 'googleId' }), authenticate('jwt') ],
     patch: [ hashPassword(),  authenticate('jwt') ],
     remove: [ authenticate('jwt') ]
   },

@@ -8,15 +8,36 @@ const userAuthAdapter = require('../../hooks/user-auth-adapter');
 
 const userUpsert = require('../../hooks/user-upsert');
 
+const userProfile = require('../../hooks/user-profile');
+
 module.exports = {
   before: {
     all: [],
-    find: [ authenticate('jwt') ],
-    get: [ authenticate('jwt') ],
-    create: [ userAuthAdapter(), hashPassword(), userUpsert({ google: 'googleId' }) ],
-    update: [ userAuthAdapter(), hashPassword(), userUpsert({ google: 'googleId' }), authenticate('jwt') ],
-    patch: [ hashPassword(),  authenticate('jwt') ],
-    remove: [ authenticate('jwt') ]
+    find: [
+      authenticate('jwt'),
+    ],
+    get: [
+      authenticate('jwt'),
+      userProfile({ publicFields: ['id', 'email', 'firstName', 'lastName', 'photo']})
+    ],
+    create: [
+      userAuthAdapter(),
+      hashPassword(),
+      userUpsert({ google: 'googleId' })
+    ],
+    update: [
+      userAuthAdapter(),
+      hashPassword(),
+      userUpsert({ google: 'googleId' }),
+      authenticate('jwt')
+    ],
+    patch: [
+      hashPassword(),
+      authenticate('jwt')
+    ],
+    remove: [
+      authenticate('jwt')
+    ]
   },
 
   after: {

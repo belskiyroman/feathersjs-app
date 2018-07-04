@@ -1,8 +1,8 @@
 const assert = require('assert');
 const feathers = require('@feathersjs/feathers');
-const userProfile = require('../../src/hooks/user-alias-me-id');
+const test = require('../../src/hooks/test');
 
-describe('\'user-profile\' hook', () => {
+describe('\'test\' hook', () => {
   let app;
 
   beforeEach(() => {
@@ -15,13 +15,13 @@ describe('\'user-profile\' hook', () => {
     });
 
     app.service('dummy').hooks({
-
+      
     });
   });
 
   it('runs the hook', async () => {
     const result = await app.service('dummy').get('test');
-
+    
     assert.deepEqual(result, { id: 'test' });
   });
 });

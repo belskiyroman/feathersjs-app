@@ -1,8 +1,8 @@
 const assert = require('assert');
 const feathers = require('@feathersjs/feathers');
-const userProfile = require('../../src/hooks/user-alias-me-id');
+const publicFields = require('../../src/hooks/public-interface');
 
-describe('\'user-profile\' hook', () => {
+describe('\'publicFields\' hook', () => {
   let app;
 
   beforeEach(() => {

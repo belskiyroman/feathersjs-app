@@ -8,7 +8,8 @@ const userAuthAdapter = require('../../hooks/user-auth-adapter');
 
 const userUpsert = require('../../hooks/user-upsert');
 
-const userProfile = require('../../hooks/user-profile');
+const currentUserAliasId = require('../../hooks/user-alias-me-id');
+const publicInterface = require('../../hooks/public-interface');
 
 module.exports = {
   before: {
@@ -18,7 +19,7 @@ module.exports = {
     ],
     get: [
       authenticate('jwt'),
-      userProfile({ publicFields: ['id', 'email', 'firstName', 'lastName', 'photo']})
+      currentUserAliasId('me'),
     ],
     create: [
       userAuthAdapter(),
@@ -26,17 +27,18 @@ module.exports = {
       userUpsert({ google: 'googleId' })
     ],
     update: [
-      userAuthAdapter(),
       hashPassword(),
-      userUpsert({ google: 'googleId' }),
-      authenticate('jwt')
+      authenticate('jwt'),
+      currentUserAliasId('me'),
     ],
     patch: [
       hashPassword(),
-      authenticate('jwt')
+      authenticate('jwt'),
+      currentUserAliasId('me'),
     ],
     remove: [
-      authenticate('jwt')
+      authenticate('jwt'),
+      currentUserAliasId('me'),
     ]
   },
 
@@ -44,7 +46,8 @@ module.exports = {
     all: [
       // Make sure the password field is never sent to the client
       // Always must be the last hook
-      protect('password')
+      protect('password'),
+      publicInterface('id', 'email', 'firstName', 'lastName', 'photo')
     ],
     find: [],
     get: [],

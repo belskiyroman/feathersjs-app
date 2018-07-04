@@ -3,14 +3,9 @@
 const _ = require('underscore');
 
 // eslint-disable-next-line no-unused-vars
-module.exports = function (options = {}) {
-
+module.exports = function (...fields) {
   return async context => {
-
-    if (context.params.authenticated && context.id === 'me') {
-      context.result = _.pick(context.params.user, options.publicFields);
-    }
-
+    context.result = _.pick(context.result, fields);
     return context;
   };
 };

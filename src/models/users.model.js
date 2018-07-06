@@ -5,7 +5,7 @@ const DataTypes = Sequelize.DataTypes;
 
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
-  const users = sequelizeClient.define('users', {
+  const User = sequelizeClient.define('User', {
 
     email: {
       type: DataTypes.STRING,
@@ -17,21 +17,41 @@ module.exports = function (app) {
       allowNull: false
     },
     googleId: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
     },
     firstName: {
-      type: Sequelize.TEXT,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     lastName: {
-      type: Sequelize.TEXT,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     photo: {
-      type: Sequelize.TEXT,
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+
+    roleId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    levelId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    positionId: {
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
   }, {
+    tableName: 'users',
+    underscoredAll: true,
+    underscored: true,
+    indexes: [{
+      unique: true,
+      fields: ['email'],
+    }],
     hooks: {
       beforeCount(options) {
         options.raw = true;
@@ -40,10 +60,28 @@ module.exports = function (app) {
   });
 
   // eslint-disable-next-line no-unused-vars
-  users.associate = function (models) {
+  User.associate = function (models) {
+    User.belongsTo(models.Role, {
+      foreignKey: {
+        name: 'roleId',
+        allowNull: true,
+      },
+    });
+    User.belongsTo(models.Level, {
+      foreignKey: {
+        name: 'levelId',
+        allowNull: true,
+      },
+    });
+    User.belongsTo(models.Position, {
+      foreignKey: {
+        name: 'positionId',
+        allowNull: true,
+      },
+    });
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
   };
 
-  return users;
+  return User;
 };

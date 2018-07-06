@@ -2,7 +2,6 @@
 // See https://github.com/winstonjs/winston for documentation
 // about the logger.
 const logger = require('../logger');
-const util = require('util');
 
 // To see more detailed messages, uncomment the following line:
 // logger.level = 'debug';
@@ -14,7 +13,7 @@ module.exports = function (marker = '') {
     logger.debug(`${marker} ${context.type} app.service('${context.path}').${context.method}()`);
 
     if(typeof context.toJSON === 'function' && logger.level === 'debug') {
-      logger.debug(`${marker} Hook Context`, context.toJSON());
+      logger.debug(`${marker} Hook Context`, context);
     }
 
     if (context.error) {

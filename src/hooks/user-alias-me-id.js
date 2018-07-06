@@ -5,11 +5,8 @@
 module.exports = function (alias) {
 
   return async context => {
-console.log('>>>>>>>> alias');
     if (context.params.authenticated && context.id === alias) {
-      console.log('>>>>>>>> alias in origin', context.id);
       context.id = context.params.user.id;
-      console.log('>>>>>>>> alias in ', context.id);
     }
 
     return context;

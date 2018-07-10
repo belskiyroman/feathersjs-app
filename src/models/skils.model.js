@@ -6,7 +6,14 @@ const DataTypes = Sequelize.DataTypes;
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
   const Skill = sequelizeClient.define('Skill', {
+    id: {
+      field: 'id',
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     skill: {
+      skill: 'skill',
       type: DataTypes.TEXT,
       allowNull: false,
       unique: true,
@@ -27,11 +34,9 @@ module.exports = function (app) {
   Skill.associate = function (models) {
 
     Skill.belongsToMany(models.Candidate, {
-      through: 'CandidatesSkills',
-      foreignKey: {
-        name: 'skillId',
-        allowNull: false
-      }
+      through: models.CandidatesSkills,
+      foreignKey: 'skill_id',
+      otherKey: 'candidate_id',
     });
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/

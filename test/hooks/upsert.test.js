@@ -1,6 +1,6 @@
 const assert = require('assert');
 const feathers = require('@feathersjs/feathers');
-const upsert = require('../../src/hooks/user-upsert');
+const upsert = require('../../src/hooks/oauth-login');
 
 describe('\'upsert\' hook', () => {
   let app;

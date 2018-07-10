@@ -6,7 +6,7 @@ const {
 
 const userAuthAdapter = require('../../hooks/user-auth-adapter');
 
-const userUpsert = require('../../hooks/user-upsert');
+const oauthLogin = require('../../hooks/oauth-login');
 
 const currentUserAliasId = require('../../hooks/user-alias-me-id');
 const publicInterface = require('../../hooks/public-interface');
@@ -24,7 +24,7 @@ module.exports = {
     create: [
       userAuthAdapter(),
       hashPassword(),
-      userUpsert({ google: 'googleId' })
+      oauthLogin({ google: 'googleId' })
     ],
     update: [
       hashPassword(),
@@ -44,10 +44,7 @@ module.exports = {
 
   after: {
     all: [
-      // Make sure the password field is never sent to the client
-      // Always must be the last hook
-      protect('password'),
-      publicInterface('id', 'email', 'firstName', 'lastName', 'photo')
+      // publicInterface('id', 'email', 'firstName', 'lastName', 'photo')
     ],
     find: [],
     get: [],

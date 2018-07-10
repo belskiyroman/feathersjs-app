@@ -6,11 +6,19 @@ const DataTypes = Sequelize.DataTypes;
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
   const CandidatesPublicProfile = sequelizeClient.define('CandidatesPublicProfile', {
+    id: {
+      field: 'id',
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     candidateId: {
+      field: 'candidate_id',
       type: DataTypes.INTEGER,
       allowNull: false,
     },
     profileLink: {
+      field: 'profile_link',
       type: DataTypes.TEXT,
       allowNull: false,
       unique: true,

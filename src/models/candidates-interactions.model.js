@@ -5,24 +5,32 @@ const DataTypes = Sequelize.DataTypes;
 
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
-  const CompanyLocation = sequelizeClient.define('CompanyLocation', {
+  const CandidatesInteractions = sequelizeClient.define('CandidatesInteractions', {
     id: {
       field: 'id',
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    location: {
-      field: 'location',
-      type: DataTypes.TEXT,
-      allowNull: false,
-    }
+    candidateId: {
+      field: 'candidate_id',
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    interactionTypeId: {
+      field: 'interaction_type_id',
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    interactionDate: {
+      field: 'interaction_date',
+      type: DataTypes.DATE,
+      allowNull: false
+    },
   }, {
-    tableName: 'company_locations',
+    tableName: 'candidates_interactions',
     underscoredAll: true,
     underscored: true,
-    updatedAt: false,
-    createdAt: false,
     hooks: {
       beforeCount(options) {
         options.raw = true;
@@ -31,21 +39,10 @@ module.exports = function (app) {
   });
 
   // eslint-disable-next-line no-unused-vars
-  CompanyLocation.associate = function (models) {
+  CandidatesInteractions.associate = function (models) {
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
   };
 
-  CompanyLocation
-    .sync({ force: true })
-    .then(() => CompanyLocation.bulkCreate({
-      records: [
-        { id: 1, location: 'Гродно' },
-        { id: 2, location: 'Минск' },
-        { id: 3, location: 'Днепр' },
-        { id: 4, location: 'Аликанте' },
-      ]
-    }));
-
-  return CompanyLocation;
+  return CandidatesInteractions;
 };

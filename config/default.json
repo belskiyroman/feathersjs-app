@@ -33,7 +33,7 @@
     "google": {
       "clientID": "288708686051-9fb0t3rf2nu24v1tiohv99rnqcjvb6l0.apps.googleusercontent.com",
       "clientSecret": "hzAgaZpogvvE06e8qX4wrK9Y",
-      "successRedirect": "/login/success",
+      "successRedirect": "/login/success.html",
       "scope": [
           "profile openid email"
       ]

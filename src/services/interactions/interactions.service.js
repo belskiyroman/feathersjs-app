@@ -1,6 +1,6 @@
 // Initializes the `interactions` service on path `/interactions`
 const createService = require('feathers-sequelize');
-const createModel = require('../../models/interactions.model');
+const createModel = require('../../models/candidates-interactions.model');
 const hooks = require('./interactions.hooks');
 
 module.exports = function (app) {

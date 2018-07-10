@@ -5,23 +5,28 @@ const DataTypes = Sequelize.DataTypes;
 
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
-  const Interaction = sequelizeClient.define('Interaction', {
+  const CandidatesSkills = sequelizeClient.define('CandidatesSkills', {
+    id: {
+      field: 'id',
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     candidateId: {
+      field: 'candidate_id',
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
     },
-    interactionTypeId: {
+    skillId: {
+      field: 'skill_id',
       type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    interactionDate: {
-      type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
     },
   }, {
-    tableName: 'interactions',
+    tableName: 'candidates_skills',
     underscoredAll: true,
     underscored: true,
+    updatedAt: false,
     hooks: {
       beforeCount(options) {
         options.raw = true;
@@ -30,10 +35,10 @@ module.exports = function (app) {
   });
 
   // eslint-disable-next-line no-unused-vars
-  Interaction.associate = function (models) {
+  CandidatesSkills.associate = function (models) {
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
   };
 
-  return Interaction;
+  return CandidatesSkills;
 };

@@ -6,8 +6,15 @@ const DataTypes = Sequelize.DataTypes;
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
   const Role = sequelizeClient.define('Role', {
+    id: {
+      field: 'id',
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     role: {
-      type: DataTypes.STRING,
+      field: 'role',
+      type: DataTypes.TEXT,
       allowNull: false,
       unique: true,
     }
@@ -16,6 +23,7 @@ module.exports = function (app) {
     underscoredAll: true,
     underscored: true,
     updatedAt: false,
+    createdAt: false,
     hooks: {
       beforeCount(options) {
         options.raw = true;
@@ -28,6 +36,17 @@ module.exports = function (app) {
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
   };
+
+  // Role
+  //   .sync({ force: true })
+  //   .then(() => Role.bulkCreate({
+  //     records: [
+  //       { id: 1, role: 'admin' },
+  //       { id: 2, role: 'hr' },
+  //       { id: 3, role: 'expert' },
+  //     ]
+  //   }))
+  //   .catch((e) => console.log('Roles: ', e));
 
   return Role;
 };

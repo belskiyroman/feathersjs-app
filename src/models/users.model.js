@@ -6,42 +6,40 @@ const DataTypes = Sequelize.DataTypes;
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
   const User = sequelizeClient.define('User', {
-
+    id: {
+      field: 'id',
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     email: {
+      field: 'email',
       type: DataTypes.STRING,
       allowNull: false,
       unique: true
     },
     password: {
+      field: 'password',
       type: DataTypes.STRING,
       allowNull: false
     },
     googleId: {
+      field: 'google_id',
       type: DataTypes.STRING,
     },
     firstName: {
+      field: 'first_name',
       type: DataTypes.TEXT,
       allowNull: false,
     },
     lastName: {
+      field: 'last_name',
       type: DataTypes.TEXT,
       allowNull: false,
     },
     photo: {
+      field: 'photo',
       type: DataTypes.TEXT,
-      allowNull: true,
-    },
-
-    roleId: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    },
-    levelId: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    },
-    positionId: {
-      type: DataTypes.INTEGER,
       allowNull: true,
     },
   }, {
@@ -63,19 +61,19 @@ module.exports = function (app) {
   User.associate = function (models) {
     User.belongsTo(models.Role, {
       foreignKey: {
-        name: 'roleId',
+        name: 'role_id',
         allowNull: true,
       },
     });
     User.belongsTo(models.Level, {
       foreignKey: {
-        name: 'levelId',
+        name: 'level_id',
         allowNull: true,
       },
     });
     User.belongsTo(models.Position, {
       foreignKey: {
-        name: 'positionId',
+        name: 'position_id',
         allowNull: true,
       },
     });

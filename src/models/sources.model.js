@@ -6,7 +6,14 @@ const DataTypes = Sequelize.DataTypes;
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
   const Source = sequelizeClient.define('Source', {
+    id: {
+      field: 'id',
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     source: {
+      field: 'source',
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,

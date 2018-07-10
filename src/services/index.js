@@ -9,9 +9,9 @@ const locations = require('./locations/locations.service.js');
 const statuses = require('./statuses/statuses.service.js');
 const interactionTypes = require('./interaction-types/interaction-types.service.js');
 const interactions = require('./interactions/interactions.service.js');
-const relationsCandidatesSkils = require('./relations-candidates-skils/relations-candidates-skils.service.js');
 const candidates = require('./candidates/candidates.service.js');
 const candidatesPublicProfiles = require('./candidates-public-profiles/candidates-public-profiles.service.js');
+const candidatesSkills = require('./candidates-skills/candidates-skills.service.js');
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
   app.configure(users);
@@ -25,7 +25,7 @@ module.exports = function (app) {
   app.configure(statuses);
   app.configure(interactionTypes);
   app.configure(interactions);
-  app.configure(relationsCandidatesSkils);
   app.configure(candidates);
   app.configure(candidatesPublicProfiles);
+  app.configure(candidatesSkills);
 };

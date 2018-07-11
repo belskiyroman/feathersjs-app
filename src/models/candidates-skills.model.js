@@ -27,6 +27,7 @@ module.exports = function (app) {
     underscoredAll: true,
     underscored: true,
     updatedAt: false,
+    createdAt: false,
     hooks: {
       beforeCount(options) {
         options.raw = true;

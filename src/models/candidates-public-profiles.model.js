@@ -27,6 +27,8 @@ module.exports = function (app) {
     tableName: 'candidates_public_profiles',
     underscoredAll: true,
     underscored: true,
+    createdAt: false,
+    updatedAt: false,
     hooks: {
       beforeCount(options) {
         options.raw = true;

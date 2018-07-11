@@ -37,16 +37,5 @@ module.exports = function (app) {
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
   };
 
-  // Role
-  //   .sync({ force: true })
-  //   .then(() => Role.bulkCreate({
-  //     records: [
-  //       { id: 1, role: 'admin' },
-  //       { id: 2, role: 'hr' },
-  //       { id: 3, role: 'expert' },
-  //     ]
-  //   }))
-  //   .catch((e) => console.log('Roles: ', e));
-
   return Role;
 };

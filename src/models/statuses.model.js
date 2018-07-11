@@ -14,7 +14,7 @@ module.exports = function (app) {
     },
     status: {
       field: 'status',
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
       unique: true,
     }
@@ -36,22 +36,6 @@ module.exports = function (app) {
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
   };
-
-  Status
-    .sync({ force: true })
-    .then(() => Status.bulkCreate({
-      records: [
-        { id: 1, status: 'fired' },
-        { id: 2, status: 'accepted' },
-        { id: 3, status: 'interns' },
-        { id: 4, status: 'interview' },
-        { id: 5, status: 'new' },
-        { id: 6, status: 'no hire' },
-        { id: 7, status: 'reserve' },
-        { id: 8, status: 'hire' },
-        { id: 9, status: 'test '}
-      ]
-    }));
 
   return Status;
 };

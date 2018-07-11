@@ -36,16 +36,5 @@ module.exports = function (app) {
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
   };
 
-  CompanyLocation
-    .sync({ force: true })
-    .then(() => CompanyLocation.bulkCreate({
-      records: [
-        { id: 1, location: 'Гродно' },
-        { id: 2, location: 'Минск' },
-        { id: 3, location: 'Днепр' },
-        { id: 4, location: 'Аликанте' },
-      ]
-    }));
-
   return CompanyLocation;
 };

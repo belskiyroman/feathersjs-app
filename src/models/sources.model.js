@@ -14,7 +14,7 @@ module.exports = function (app) {
     },
     source: {
       field: 'source',
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
       unique: true,
     }

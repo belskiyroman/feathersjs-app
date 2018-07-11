@@ -1,15 +1,12 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
 
-const {
-  hashPassword, protect
-} = require('@feathersjs/authentication-local').hooks;
+const { hashPassword } = require('@feathersjs/authentication-local').hooks;
 
 const userAuthAdapter = require('../../hooks/user-auth-adapter');
 
 const oauthLogin = require('../../hooks/oauth-login');
 
 const currentUserAliasId = require('../../hooks/user-alias-me-id');
-const publicInterface = require('../../hooks/public-interface');
 
 module.exports = {
   before: {

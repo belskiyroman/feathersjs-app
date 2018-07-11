@@ -13,7 +13,7 @@ module.exports = function (app) {
       autoIncrement: true,
     },
     skill: {
-      skill: 'skill',
+      field: 'skill',
       type: DataTypes.TEXT,
       allowNull: false,
       unique: true,

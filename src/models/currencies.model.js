@@ -28,6 +28,7 @@ module.exports = function (app) {
     tableName: 'currencies',
     underscoredAll: true,
     underscored: true,
+    updatedAt: false,
     createdAt: false,
     hooks: {
       beforeCount(options) {
@@ -41,17 +42,6 @@ module.exports = function (app) {
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
   };
-
-  Currency
-    .sync({ force: true })
-    .then(() => Currency.bulkCreate({
-      records: [
-        { id: 1, currencyName: 'USD', currencySymbol: '$' },
-        { id: 2, currencyName: 'EUR', currencySymbol: '€' },
-        { id: 3, currencyName: 'UAH', currencySymbol: '₴' },
-        { id: 4, currencyName: 'BYN', currencySymbol: 'BYN' },
-      ]
-    }));
 
   return Currency;
 };

@@ -62,7 +62,7 @@ module.exports = function (app) {
     User.belongsTo(models.Role, {
       foreignKey: {
         name: 'role_id',
-        allowNull: true,
+        allowNull: false,
       },
     });
     User.belongsTo(models.Level, {

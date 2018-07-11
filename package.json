@@ -22,11 +22,20 @@
     "npm": ">= 3.0.0"
   },
   "scripts": {
+    "lint:fix": "./node_modules/.bin/eslint src/. test/. --config .eslintrc.json --fix",
     "test": "npm run eslint && npm run mocha",
-    "test:eslint": "./node_modules/.bin/eslint src/. test/. --config .eslintrc.json",
+    "test:lint": "./node_modules/.bin/eslint src/. test/. --config .eslintrc.json",
     "test:mocha": "./node_modules/.bin/mocha test/ --recursive --exit",
     "start": "node src/",
-    "start:dev": "./node_modules/.bin/nodemon src/"
+    "start:dev": "./node_modules/.bin/nodemon src/",
+    "db:create": "./node_modules/.bin/sequelize db:create",
+    "db:drop": "./node_modules/.bin/sequelize db:drop",
+    "db:migrate": "./node_modules/.bin/sequelize db:migrate",
+    "db:migrate:schema:timestamps:add": "./node_modules/.bin/sequelize db:migrate:schema:timestamps:add",
+    "db:migrate:status": "./node_modules/.bin/sequelize db:migrate:status",
+    "db:migrate:undo": "./node_modules/.bin/sequelize db:migrate:undo",
+    "db:migrate:undo:all": "./node_modules/.bin/sequelize db:migrate:undo:all"
+
   },
   "dependencies": {
     "@feathersjs/authentication": "^2.1.6",

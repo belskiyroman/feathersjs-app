@@ -8,7 +8,7 @@ module.exports = function (options = {}) {
     const provider = params.oauth ? params.oauth.provider : params.provider;
 
     switch (provider) {
-    case 'google':
+    case 'google': {
       context.data = {
         googleId: data.googleId,
         email: data.google.profile.emails.find(mail => mail.type === 'account').value,
@@ -25,6 +25,7 @@ module.exports = function (options = {}) {
         context.result  = await user.save();
       }
       break;
+    }
     case 'rest':
       context.data = {
         email: data.email,

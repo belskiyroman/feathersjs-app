@@ -22,10 +22,20 @@
     "npm": ">= 3.0.0"
   },
   "scripts": {
+    "lint:fix": "./node_modules/.bin/eslint src/. test/. --config .eslintrc.json --fix",
     "test": "npm run eslint && npm run mocha",
-    "eslint": "eslint src/. test/. --config .eslintrc.json",
+    "test:lint": "./node_modules/.bin/eslint src/. test/. --config .eslintrc.json",
+    "test:mocha": "./node_modules/.bin/mocha test/ --recursive --exit",
     "start": "node src/",
-    "mocha": "mocha test/ --recursive --exit"
+    "start:dev": "./node_modules/.bin/nodemon src/",
+    "db:create": "./node_modules/.bin/sequelize db:create",
+    "db:drop": "./node_modules/.bin/sequelize db:drop",
+    "db:migrate": "./node_modules/.bin/sequelize db:migrate",
+    "db:migrate:schema:timestamps:add": "./node_modules/.bin/sequelize db:migrate:schema:timestamps:add",
+    "db:migrate:status": "./node_modules/.bin/sequelize db:migrate:status",
+    "db:migrate:undo": "./node_modules/.bin/sequelize db:migrate:undo",
+    "db:migrate:undo:all": "./node_modules/.bin/sequelize db:migrate:undo:all"
+
   },
   "dependencies": {
     "@feathersjs/authentication": "^2.1.6",
@@ -44,12 +54,16 @@
     "passport-google-oauth20": "^1.0.0",
     "pg": "^7.4.1",
     "sequelize": "^4.33.0",
+    "sequelize-cli": "^4.0.0",
     "serve-favicon": "^2.4.5",
+    "underscore": "^1.9.1",
+    "validate.js": "^0.12.0",
     "winston": "^3.0.0"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
     "mocha": "^5.2.0",
+    "nodemon": "^1.17.5",
     "request": "^2.87.0",
     "request-promise": "^4.2.2"
   }

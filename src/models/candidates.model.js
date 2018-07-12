@@ -76,58 +76,67 @@ module.exports = function (app) {
   Candidate.associate = function (models) {
 
     Candidate.belongsToMany(models.InteractionType, {
+      as: 'interactions',
       through: models.CandidatesInteractions,
       foreignKey: 'candidate_id',
       otherKey: 'interaction_type_id',
       onDelete: 'CASCADE',
     });
     Candidate.belongsToMany(models.Skill, {
+      as: 'skills',
       through: models.CandidatesSkills,
       foreignKey: 'candidate_id',
       otherKey: 'skill_id',
     });
     Candidate.belongsTo(models.CompanyLocation, {
+      as: 'location',
       foreignKey: {
         name: 'company_location_id',
         allowNull: false
       }
     });
     Candidate.belongsTo(models.Position, {
+      as: 'position',
       foreignKey: {
         name: 'position_id',
         allowNull: false
       }
     });
     Candidate.belongsTo(models.Status, {
+      as: 'status',
       foreignKey: {
         name: 'status_id',
         allowNull: false
       }
     });
     Candidate.belongsTo(models.Currency, {
+      as: 'currency',
       foreignKey: {
         name: 'currency_id',
         allowNull: false
       }
     });
     Candidate.belongsTo(models.Source, {
+      as: 'source',
       foreignKey: {
         name: 'source_id',
         allowNull: false
       }
     });
     Candidate.belongsTo(models.Level, {
+      as: 'level',
       foreignKey: {
         name: 'level_id',
         allowNull: false
       }
     });
     Candidate.hasMany(models.CandidatesPublicProfile, {
-      onDelete: 'CASCADE',
+      as: 'profiles',
       foreignKey: {
         name: 'candidate_id',
         allowNull: false
-      }
+      },
+      onDelete: 'CASCADE',
     });
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/

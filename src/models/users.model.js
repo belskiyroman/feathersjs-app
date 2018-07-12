@@ -60,23 +60,28 @@ module.exports = function (app) {
   // eslint-disable-next-line no-unused-vars
   User.associate = function (models) {
     User.belongsTo(models.Role, {
+      as: 'role',
       foreignKey: {
         name: 'role_id',
         allowNull: false,
       },
+      otherKey: 'id'
     });
     User.belongsTo(models.Level, {
+      as: 'level',
       foreignKey: {
         name: 'level_id',
         allowNull: true,
       },
     });
     User.belongsTo(models.Position, {
+      as: 'position',
       foreignKey: {
         name: 'position_id',
         allowNull: true,
       },
     });
+
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
   };

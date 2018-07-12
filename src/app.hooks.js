@@ -1,9 +1,18 @@
-// Application hooks that run for every service
+// Applications that run for every service
+const { authenticate } = require('@feathersjs/authentication').hooks;
 const log = require('./hooks/log');
 
 module.exports = {
   before: {
-    all: [ log('app hook:') ],
+    all: [
+      log('app'),
+      context => {
+        if (context.path === 'users' && context.method === 'create') {
+          return context;
+        }
+        return authenticate('jwt')(context);
+      },
+    ],
     find: [],
     get: [],
     create: [],
@@ -13,7 +22,7 @@ module.exports = {
   },
 
   after: {
-    all: [ log('app hook:') ],
+    all: [ log('app') ],
     find: [],
     get: [],
     create: [],
@@ -23,7 +32,7 @@ module.exports = {
   },
 
   error: {
-    all: [ log('app hook:') ],
+    all: [ log('app') ],
     find: [],
     get: [],
     create: [],

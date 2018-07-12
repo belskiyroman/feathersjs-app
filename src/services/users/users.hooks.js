@@ -1,21 +1,23 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
-
 const { hashPassword } = require('@feathersjs/authentication-local').hooks;
 
+const log = require('../../hooks/log');
+
 const userAuthAdapter = require('../../hooks/user-auth-adapter');
-
 const oauthLogin = require('../../hooks/oauth-login');
-
 const currentUserAliasId = require('../../hooks/user-alias-me-id');
+const includeAssociations = require('../../hooks/include-associations');
+const clearAssociationsKeys = require('../../hooks/clear-associations-keys');
 
 module.exports = {
   before: {
-    all: [],
+    all: [
+      log('user'),
+      includeAssociations(),
+    ],
     find: [
-      authenticate('jwt'),
     ],
     get: [
-      authenticate('jwt'),
       currentUserAliasId('me'),
     ],
     create: [
@@ -25,23 +27,22 @@ module.exports = {
     ],
     update: [
       hashPassword(),
-      authenticate('jwt'),
       currentUserAliasId('me'),
     ],
     patch: [
       hashPassword(),
-      authenticate('jwt'),
       currentUserAliasId('me'),
     ],
     remove: [
-      authenticate('jwt'),
       currentUserAliasId('me'),
     ]
   },
 
   after: {
     all: [
+      log('user'),
       // publicInterface('id', 'email', 'firstName', 'lastName', 'photo')
+      clearAssociationsKeys(),
     ],
     find: [],
     get: [],

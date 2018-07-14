@@ -1,3 +1,4 @@
+const logger = require('./logger');
 const Sequelize = require('sequelize');
 const { Op } = Sequelize;
 const operatorsAliases = {
@@ -41,7 +42,7 @@ module.exports = function (app) {
   const connectionString = app.get('postgres');
   const sequelize = new Sequelize(connectionString, {
     dialect: 'postgres',
-    logging: false,
+    logging: sql => logger.info(sql),
     operatorsAliases,
     define: {
       freezeTableName: true

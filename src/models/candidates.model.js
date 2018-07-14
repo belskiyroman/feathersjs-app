@@ -40,7 +40,7 @@ module.exports = function (app) {
     },
     phone: {
       field: 'phone',
-      type: DataTypes.INTEGER,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     skype: {

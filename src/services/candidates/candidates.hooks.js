@@ -1,3 +1,6 @@
+const { SUPER_ADMIN, ADMIN } = require('../../constants/roles.const');
+
+const acl = require('../../hooks/ignore-native-call');
 const ignoreNativeCall = require('../../hooks/ignore-native-call');
 const convertToPlain = require('../../hooks/convert-to-plain');
 const deleteForeignKeys = require('../../hooks/delete-foreign-keys');
@@ -17,7 +20,11 @@ module.exports = {
     patch: [
       includeAssociations({ all: true }),
     ],
-    remove: []
+    remove: [
+      acl({
+        roles: [SUPER_ADMIN, ADMIN]
+      })
+    ]
   },
 
   after: {

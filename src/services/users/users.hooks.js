@@ -34,7 +34,7 @@ module.exports = {
     all: [
       ignoreNativeCall(
         convertToPlain(),
-        protect('password'),
+        protect('password', 'googleId'),
         deleteForeignKeys()
       ),
     ],

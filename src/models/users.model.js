@@ -42,6 +42,14 @@ module.exports = function (app) {
       type: DataTypes.TEXT,
       allowNull: true,
     },
+    createdAt: {
+      field: 'created_at',
+      type: DataTypes.DATE,
+    },
+    updatedAt: {
+      field: 'updated_at',
+      type: DataTypes.DATE,
+    },
   }, {
     tableName: 'users',
     underscoredAll: true,

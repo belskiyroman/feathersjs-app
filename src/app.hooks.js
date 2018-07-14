@@ -1,17 +1,21 @@
 // Applications that run for every service
 const { authenticate } = require('@feathersjs/authentication').hooks;
+
 const log = require('./hooks/log');
+const exclude = require('./hooks/exclude');
+const assignUserModel = require('./hooks/assign-user-model');
 
 module.exports = {
   before: {
     all: [
       log('app'),
-      context => {
-        if (context.path === 'users' && context.method === 'create') {
-          return context;
-        }
-        return authenticate('jwt')(context);
-      },
+      exclude(
+        authenticate('jwt'), [
+          { service: 'users', method: 'create' },
+          { service: 'authentication', method: 'create' },
+        ]
+      ),
+      assignUserModel(),
     ],
     find: [],
     get: [],

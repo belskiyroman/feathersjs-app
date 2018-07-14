@@ -50,6 +50,10 @@ module.exports = function (app) {
       unique: true,
       fields: ['email'],
     }],
+    name: {
+      singular: 'User',
+      plural: 'Users',
+    },
     hooks: {
       beforeCount(options) {
         options.raw = true;

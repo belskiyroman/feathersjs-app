@@ -11,7 +11,11 @@ module.exports = function (app) {
 
   // Set up authentication with the secret
   app.configure(authentication(config));
-  app.configure(jwt());
+  app.configure(jwt(/*{
+    service: {
+      get: id => app.models.User.findById(id)
+    }
+  }*/));
   app.configure(local());
 
   app.configure(oauth2(Object.assign({

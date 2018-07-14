@@ -2,23 +2,24 @@
 // For more information on hooks see: http://docs.feathersjs.com/api/hooks.html
 
 // eslint-disable-next-line no-unused-vars
-module.exports = function (options = { raw: false, include: [] }) {
-  const { raw, include: includeDefault } = options;
+module.exports = function (options = { all: false, raw: false, include: [] }) {
+  const { all, raw, include: includeDefault } = options;
 
   return async context => {
     const { params, service } = context;
+    const associations = service.Model.associations;
+    let include = all ? Object.values(associations) : [];
 
     if (params.query && params.query.include) {
-      const associations = service.Model.associations;
-      const include = params.query.include
+      include = all ? include : params.query.include
         .map(name => associations[name])
         .filter(Boolean)
         .concat(includeDefault);
 
-      params.sequelize = { raw, include };
       delete params.query.include;
     }
 
+    params.sequelize = { raw, include };
     return context;
   };
 };

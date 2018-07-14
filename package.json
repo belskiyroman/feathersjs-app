@@ -35,7 +35,6 @@
     "db:migrate:status": "./node_modules/.bin/sequelize db:migrate:status",
     "db:migrate:undo": "./node_modules/.bin/sequelize db:migrate:undo",
     "db:migrate:undo:all": "./node_modules/.bin/sequelize db:migrate:undo:all"
-
   },
   "dependencies": {
     "@feathersjs/authentication": "^2.1.6",

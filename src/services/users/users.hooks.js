@@ -1,25 +1,21 @@
-const { authenticate } = require('@feathersjs/authentication').hooks;
-const { hashPassword } = require('@feathersjs/authentication-local').hooks;
-
-const log = require('../../hooks/log');
+const { hashPassword, protect } = require('@feathersjs/authentication-local').hooks;
 
 const userAuthAdapter = require('../../hooks/user-auth-adapter');
 const oauthLogin = require('../../hooks/oauth-login');
 const currentUserAliasId = require('../../hooks/user-alias-me-id');
+const convertToPlain = require('../../hooks/convert-to-plain');
+const ignoreNativeCall = require('../../hooks/ignore-native-call');
 const includeAssociations = require('../../hooks/include-associations');
-const clearAssociationsKeys = require('../../hooks/clear-associations-keys');
+const deleteForeignKeys = require('../../hooks/delete-foreign-keys');
 
 module.exports = {
   before: {
     all: [
-      log('user'),
+      currentUserAliasId('me'),
       includeAssociations(),
     ],
-    find: [
-    ],
-    get: [
-      currentUserAliasId('me'),
-    ],
+    find: [],
+    get: [],
     create: [
       userAuthAdapter(),
       hashPassword(),
@@ -27,22 +23,20 @@ module.exports = {
     ],
     update: [
       hashPassword(),
-      currentUserAliasId('me'),
     ],
     patch: [
       hashPassword(),
-      currentUserAliasId('me'),
     ],
-    remove: [
-      currentUserAliasId('me'),
-    ]
+    remove: []
   },
 
   after: {
     all: [
-      log('user'),
-      // publicInterface('id', 'email', 'firstName', 'lastName', 'photo')
-      clearAssociationsKeys(),
+      ignoreNativeCall(
+        convertToPlain(),
+        protect('password'),
+        deleteForeignKeys()
+      ),
     ],
     find: [],
     get: [],

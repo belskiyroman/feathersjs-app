@@ -1,18 +1,32 @@
-const { authenticate } = require('@feathersjs/authentication').hooks;
+const ignoreNativeCall = require('../../hooks/ignore-native-call');
+const convertToPlain = require('../../hooks/convert-to-plain');
+const deleteForeignKeys = require('../../hooks/delete-foreign-keys');
+const includeAssociations = require('../../hooks/include-associations');
 
 module.exports = {
   before: {
-    all: [ authenticate('jwt') ],
+    all: [],
     find: [],
     get: [],
-    create: [],
-    update: [],
-    patch: [],
+    create: [
+      includeAssociations({ all: true }),
+    ],
+    update: [
+      includeAssociations({ all: true }),
+    ],
+    patch: [
+      includeAssociations({ all: true }),
+    ],
     remove: []
   },
 
   after: {
-    all: [],
+    all: [
+      ignoreNativeCall(
+        convertToPlain(),
+        deleteForeignKeys()
+      )
+    ],
     find: [],
     get: [],
     create: [],

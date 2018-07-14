@@ -1,23 +1,30 @@
 // Use this hook to manipulate incoming or outgoing data.
 // For more information on hooks see: http://docs.feathersjs.com/api/hooks.html
 
+const _ = require('underscore');
+
 // eslint-disable-next-line no-unused-vars
 module.exports = function (options = {}) {
   return async context => {
     const { service, method } = context;
-    let result = method === 'find' ? context.result.data : context.result;
-    result = result instanceof service.Model ? result.toJSON() : result;
+    const isFind = method === 'find';
+    const data = isFind ? context.result.data : [context.result];
 
-    Object
+    const foreignKeys = Object
       .values(service.Model.associations)
-      .forEach(model => delete result[model.foreignKey]);
+      .map(model => model.foreignKey);
 
-    if (method === 'find') {
+    const result = data
+      .map(model => _.omit(model, foreignKeys));
+
+    if (isFind) {
       context.result.data = result;
     } else {
-      context.result = result;
+      context.result = result[0];
     }
 
+    context.dispatch = context.result;
     return context;
   };
 };
+

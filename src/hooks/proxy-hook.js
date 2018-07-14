@@ -7,7 +7,7 @@ module.exports = function (options = {}) {
   const excludeHooks = exclude.map(method => method.toLowerCase());
 
   if (typeof hook !== 'function' || !Array.isArray(exclude)) {
-    throw new Error('You should pass hook function and an array of exclude the hooks methods.');
+    throw new Error('You must pass a hook function and an array of exclude the hooks methods of the service.');
   }
 
   return async context => {

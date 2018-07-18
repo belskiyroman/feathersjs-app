@@ -29,13 +29,6 @@ module.exports = function (app) {
     hooks: {
       beforeCount(options) {
         options.raw = true;
-      },
-      afterBulkSync() {
-        console.log('start');
-        Status
-          .sync({ force: true })
-          .then(() => Status.bulkCreate(data))
-          .then(() => console.log('finish'));
       }
     }
   });

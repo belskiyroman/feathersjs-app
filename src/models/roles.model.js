@@ -29,11 +29,6 @@ module.exports = function (app) {
     hooks: {
       beforeCount(options) {
         options.raw = true;
-      },
-      afterBulkSync() {
-        Role
-          .sync({ force: true })
-          .then(() => Role.bulkCreate(data));
       }
     }
   });

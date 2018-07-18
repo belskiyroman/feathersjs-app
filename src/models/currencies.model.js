@@ -35,11 +35,6 @@ module.exports = function (app) {
     hooks: {
       beforeCount(options) {
         options.raw = true;
-      },
-      afterBulkSync() {
-        Currency
-          .sync({ force: true })
-          .then(() => Currency.bulkCreate(data));
       }
     }
   });

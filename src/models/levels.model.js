@@ -29,12 +29,7 @@ module.exports = function (app) {
     hooks: {
       beforeCount(options) {
         options.raw = true;
-      },
-      afterBulkSync() {
-        Level
-          .sync({force: true})
-          .then(() => Level.bulkCreate(data));
-      },
+      }
     }
   });
 

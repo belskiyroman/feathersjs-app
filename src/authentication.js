@@ -3,7 +3,7 @@ const jwt = require('@feathersjs/authentication-jwt');
 const local = require('@feathersjs/authentication-local');
 const oauth2 = require('@feathersjs/authentication-oauth2');
 const GoogleStrategy = require('passport-google-oauth20');
-const oauthHandler = require('./hooks/oauth-handler');
+const { oauthHandler } = require('./hooks');
 
 module.exports = function (app) {
   const config = app.get('authentication');

@@ -48,6 +48,8 @@
     "@feathersjs/socketio": "^3.2.2",
     "compression": "^1.7.2",
     "cors": "^2.8.4",
+    "debug": "^3.1.0",
+    "feathers-hooks-common": "^4.14.3",
     "feathers-sequelize": "^3.1.2",
     "helmet": "^3.10.0",
     "passport-google-oauth20": "^1.0.0",

@@ -10,17 +10,17 @@ module.exports = function (marker = '') {
   return context => {
     // This debugs the service call and a stringified version of the hook context
     // You can customize the message (and logger) to your needs
-    logger.debug('============================================================================');
-    logger.debug(`${marker}: ${context.type}, ${context.params.provider || 'native'} provired, app.service('${context.path}').${context.method}()`);
+    logger.info('============================================================================');
+    logger.info(`${marker}: ${context.type}, ${context.params.provider || (context.params.oauth && context.params.oauth.provider) || 'native'} provired, app.service('${context.path}').${context.method}()`);
 
-    if(typeof context.toJSON === 'function' && logger.level === 'debug') {
-      logger.debug('Hook Context', context);
+    if(typeof context.toJSON === 'function' && logger.level === 'info') {
+      logger.info('Hook Context', context);
     }
 
     if (context.error) {
       logger.error(`${marker} ${context.error.stack}`);
     }
 
-    logger.debug('============================================================================\n');
+    logger.info('============================================================================\n');
   };
 };

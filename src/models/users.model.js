@@ -3,6 +3,8 @@
 const Sequelize = require('sequelize');
 const DataTypes = Sequelize.DataTypes;
 
+const { roles } = require('../constants');
+
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
   const User = sequelizeClient.define('User', {
@@ -54,6 +56,8 @@ module.exports = function (app) {
     tableName: 'users',
     underscoredAll: true,
     underscored: true,
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
     indexes: [{
       unique: true,
       fields: ['email'],
@@ -76,6 +80,7 @@ module.exports = function (app) {
       foreignKey: {
         name: 'role_id',
         allowNull: false,
+        defaultValue: roles.GHOST
       },
       otherKey: 'id'
     });

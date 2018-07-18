@@ -15,7 +15,8 @@ module.exports = function (options = {}) {
 
     user.setDataValue(options[provider], data[options[provider]]);
     !user.photo && user.setDataValue('photo', data.photo);
-    context.result  = await user.save();
+    context.result = await user.save();
+    context.dispatch = context.result;
 
     return context;
   };

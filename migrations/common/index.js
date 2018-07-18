@@ -1,7 +1,8 @@
-const loging = require('./logging');
 const benchmark = require('./benchmark');
+const { logging, errorHandler } = require('./debug');
 
 module.exports = {
-  loging,
   benchmark,
+  logging,
+  errorHandler,
 };

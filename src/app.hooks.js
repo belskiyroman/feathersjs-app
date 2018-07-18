@@ -1,9 +1,11 @@
 // Applications that run for every service
 const { authenticate } = require('@feathersjs/authentication').hooks;
 
-const log = require('./hooks/log');
-const exclude = require('./hooks/exclude');
-const assignUserModel = require('./hooks/assign-user-model');
+const {
+  log,
+  exclude,
+  assignUserModel,
+} = require('./hooks');
 
 module.exports = {
   before: {

@@ -27,10 +27,20 @@ module.exports = function (app) {
       type: DataTypes.DATE,
       allowNull: false
     },
+    createdAt: {
+      field: 'created_at',
+      type: DataTypes.DATE,
+    },
+    updatedAt: {
+      field: 'updated_at',
+      type: DataTypes.DATE,
+    },
   }, {
     tableName: 'candidates_interactions',
     underscoredAll: true,
     underscored: true,
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
     hooks: {
       beforeCount(options) {
         options.raw = true;

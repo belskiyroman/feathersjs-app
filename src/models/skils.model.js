@@ -17,12 +17,17 @@ module.exports = function (app) {
       type: DataTypes.TEXT,
       allowNull: false,
       unique: true,
-    }
+    },
+    createdAt: {
+      field: 'created_at',
+      type: DataTypes.DATE,
+    },
   }, {
     tableName: 'skills',
     underscoredAll: true,
     underscored: true,
     updatedAt: false,
+    createdAt: 'createdAt',
     hooks: {
       beforeCount(options) {
         options.raw = true;

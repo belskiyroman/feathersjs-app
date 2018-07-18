@@ -6,7 +6,11 @@
     "default": 10,
     "max": 50
   },
-  "postgres": "postgres://postgres:@localhost:5432/hr_portal",
+  "postgres": {
+    "host": "localhost",
+    "database": "hr_portal",
+    "username": "postgres"
+  },
   "authentication": {
     "secret": "7a43cff37b4e5b065d118bbf25e0936f0664c5e53eefb8a6f3f36ca3c6e8f2c994427c681cbf5fb38cff8efb7e8690b086cd082462e5869d63b4f509b1838ade5c3e54cabc7d64867975531d7ebfa43bd1261cbe40ec4a3bda3d52703f3f198bef8e187c311e3f4a8fd3ca0673b5740c95852c736236517daae4aed775a77cca625f946122ddf0e53eaf6a04778340b5f2624a50055bfe7c5c601d6a1f6533b01a89a7aa6bf1be91bb0751e8aaefbff37e67805c277d641ea970f1b4937d28addc3b7e8cf3a9102d5570af4b156e34d71dca024be45d6e6f76abda136dac13dd964ed6bc81483fa51bb259f11468950d17a977b0ef27982717c0b47f4ec4f731",
     "strategies": [

@@ -39,10 +39,11 @@ const operatorsAliases = {
 };
 
 module.exports = function (app) {
-  const connectionString = app.get('postgres');
-  const sequelize = new Sequelize(connectionString, {
+  const { database, username, password, host } = app.get('postgres');
+  const sequelize = new Sequelize(database, username, password, {
+    host: host || 'localhost',
     dialect: 'postgres',
-    logging: sql => logger.info(sql),
+    logging: sql => logger.debug(sql),
     operatorsAliases,
     define: {
       freezeTableName: true

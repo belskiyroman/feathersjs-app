@@ -1,6 +1,13 @@
+const { SUPER_ADMIN } = require('../../constants/roles.const');
+const { acl } = require('../../hooks');
+
 module.exports = {
   before: {
-    all: [],
+    all: [
+      acl({
+        roles: [SUPER_ADMIN]
+      })
+    ],
     find: [],
     get: [],
     create: [],

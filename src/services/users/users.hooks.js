@@ -1,12 +1,31 @@
 const { hashPassword, protect } = require('@feathersjs/authentication-local').hooks;
+const { iff } = require('feathers-hooks-common');
 
-const userAuthAdapter = require('../../hooks/user-auth-adapter');
-const oauthLogin = require('../../hooks/oauth-login');
-const currentUserAliasId = require('../../hooks/user-alias-me-id');
-const convertToPlain = require('../../hooks/convert-to-plain');
-const ignoreNativeCall = require('../../hooks/ignore-native-call');
-const includeAssociations = require('../../hooks/include-associations');
-const deleteForeignKeys = require('../../hooks/delete-foreign-keys');
+const { GHOST, SUPER_ADMIN } = require('../../constants/roles.const');
+const { user } = require('../../validations');
+
+const {
+  acl,
+  validate,
+  oauthLogin,
+  currentUserAliasId,
+  convertToPlain,
+  ignoreNativeCall,
+  includeAssociations,
+  deleteForeignKeys,
+  mapToSchema,
+} = require('../../hooks');
+
+const ifGoogleOauth = iff(
+  context => context.params.oauth && context.params.oauth.provider === 'google',
+  mapToSchema(user.schemas.googleOauth),
+  oauthLogin({ google: 'googleId' }),
+);
+const ifLocalSignUp = iff(
+  context => context.params && context.params.provider === 'rest',
+  validate(user.constraints.create),
+  mapToSchema(user.schemas.localSignUp),
+);
 
 module.exports = {
   before: {
@@ -17,9 +36,9 @@ module.exports = {
     find: [],
     get: [],
     create: [
-      userAuthAdapter(),
-      hashPassword(),
-      oauthLogin({ google: 'googleId' })
+      ifGoogleOauth,
+      ifLocalSignUp,
+      hashPassword()
     ],
     update: [
       hashPassword(),
@@ -27,7 +46,11 @@ module.exports = {
     patch: [
       hashPassword(),
     ],
-    remove: []
+    remove: [
+      acl({
+        roles: [SUPER_ADMIN]
+      })
+    ]
   },
 
   after: {

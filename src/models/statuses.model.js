@@ -3,6 +3,8 @@
 const Sequelize = require('sequelize');
 const DataTypes = Sequelize.DataTypes;
 
+const { statuses: data } = require('../app-seeds');
+
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
   const Status = sequelizeClient.define('Status', {
@@ -27,6 +29,13 @@ module.exports = function (app) {
     hooks: {
       beforeCount(options) {
         options.raw = true;
+      },
+      afterBulkSync() {
+        console.log('start');
+        Status
+          .sync({ force: true })
+          .then(() => Status.bulkCreate(data))
+          .then(() => console.log('finish'));
       }
     }
   });

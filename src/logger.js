@@ -1,3 +1,4 @@
+const debug = require('debug')('app:logger');
 const { createLogger, format, transports, addColors } = require('winston');
 
 addColors({

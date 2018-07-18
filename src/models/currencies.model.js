@@ -3,6 +3,8 @@
 const Sequelize = require('sequelize');
 const DataTypes = Sequelize.DataTypes;
 
+const { currencies: data } = require('../app-seeds');
+
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
   const Currency = sequelizeClient.define('Currency', {
@@ -33,6 +35,11 @@ module.exports = function (app) {
     hooks: {
       beforeCount(options) {
         options.raw = true;
+      },
+      afterBulkSync() {
+        Currency
+          .sync({ force: true })
+          .then(() => Currency.bulkCreate(data));
       }
     }
   });

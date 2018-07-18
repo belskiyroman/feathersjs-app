@@ -17,12 +17,17 @@ module.exports = function (app) {
       type: DataTypes.TEXT,
       allowNull: false,
       unique: true,
-    }
+    },
+    createdAt: {
+      field: 'created_at',
+      type: DataTypes.DATE,
+    },
   }, {
     tableName: 'positions',
     underscoredAll: true,
     underscored: true,
     updatedAt: false,
+    createdAt: 'createdAt',
     hooks: {
       beforeCount(options) {
         options.raw = true;
@@ -35,6 +40,6 @@ module.exports = function (app) {
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
   };
-  
+
   return Position;
 };

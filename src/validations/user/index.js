@@ -1,7 +1,7 @@
-const attributes = require('./user.attributes');
+const schemas = require('./user.schema');
 const constraints = require('./user.constraints');
 
 module.exports = {
-  attributes,
+  schemas,
   constraints,
 };

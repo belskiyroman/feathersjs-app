@@ -53,10 +53,20 @@ module.exports = function (app) {
       type: DataTypes.TEXT,
       allowNull: false,
     },
+    createdAt: {
+      field: 'created_at',
+      type: DataTypes.DATE,
+    },
+    updatedAt: {
+      field: 'updated_at',
+      type: DataTypes.DATE,
+    },
   }, {
     tableName: 'candidates',
     underscoredAll: true,
     underscored: true,
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
     indexes: [{
       unique: true,
       fields: ['email'],

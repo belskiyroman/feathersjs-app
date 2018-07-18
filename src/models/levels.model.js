@@ -3,6 +3,8 @@
 const Sequelize = require('sequelize');
 const DataTypes = Sequelize.DataTypes;
 
+const { levels: data } = require('../app-seeds');
+
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
   const Level = sequelizeClient.define('Level', {
@@ -16,6 +18,7 @@ module.exports = function (app) {
       field: 'level',
       type: DataTypes.TEXT,
       allowNull: false,
+      unique: true,
     }
   }, {
     tableName: 'levels',
@@ -26,7 +29,12 @@ module.exports = function (app) {
     hooks: {
       beforeCount(options) {
         options.raw = true;
-      }
+      },
+      afterBulkSync() {
+        Level
+          .sync({force: true})
+          .then(() => Level.bulkCreate(data));
+      },
     }
   });
 

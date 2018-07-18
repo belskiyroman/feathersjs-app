@@ -5,7 +5,7 @@
 module.exports = function (options = {}) {
   return async context => {
     const { data = {}, params = {} } = context;
-    const provider = params.oauth ? params.oauth.provider : params.provider;
+    const provider = params.oauth && params.oauth.provider;
 
     switch (provider) {
     case 'google': {
@@ -26,15 +26,6 @@ module.exports = function (options = {}) {
       }
       break;
     }
-    case 'rest':
-      context.data = {
-        email: data.email,
-        password: data.password,
-        firstName: data.firstName,
-        lastName: data.lastName,
-        photo: data.photo,
-      };
-      break;
     }
 
     return context;

@@ -1,10 +1,12 @@
 const { SUPER_ADMIN, ADMIN } = require('../../constants/roles.const');
 
-const acl = require('../../hooks/ignore-native-call');
-const ignoreNativeCall = require('../../hooks/ignore-native-call');
-const convertToPlain = require('../../hooks/convert-to-plain');
-const deleteForeignKeys = require('../../hooks/delete-foreign-keys');
-const includeAssociations = require('../../hooks/include-associations');
+const {
+  acl,
+  ignoreNativeCall,
+  convertToPlain,
+  deleteForeignKeys,
+  includeAssociations,
+} = require('../../hooks');
 
 module.exports = {
   before: {

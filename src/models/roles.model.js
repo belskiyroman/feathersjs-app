@@ -3,6 +3,8 @@
 const Sequelize = require('sequelize');
 const DataTypes = Sequelize.DataTypes;
 
+const { roles: data } = require('../app-seeds');
+
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
   const Role = sequelizeClient.define('Role', {
@@ -27,6 +29,11 @@ module.exports = function (app) {
     hooks: {
       beforeCount(options) {
         options.raw = true;
+      },
+      afterBulkSync() {
+        Role
+          .sync({ force: true })
+          .then(() => Role.bulkCreate(data));
       }
     }
   });

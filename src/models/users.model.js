@@ -52,6 +52,22 @@ module.exports = function (app) {
       field: 'updated_at',
       type: DataTypes.DATE,
     },
+    roleId: {
+      field: 'role_id',
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: roles.GHOST,
+    },
+    levelId: {
+      field: 'level_id',
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    positionId: {
+      field: 'position_id',
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
   }, {
     tableName: 'users',
     underscoredAll: true,
@@ -75,28 +91,24 @@ module.exports = function (app) {
 
   // eslint-disable-next-line no-unused-vars
   User.associate = function (models) {
+
+    User.belongsToMany(models.Candidate, {
+      as: 'connectedCandidates',
+      through: models.CandidatesUsers,
+      foreignKey: 'candidate_id',
+      otherKey: 'user_id',
+    });
     User.belongsTo(models.Role, {
       as: 'role',
-      foreignKey: {
-        name: 'role_id',
-        allowNull: false,
-        defaultValue: roles.GHOST
-      },
-      otherKey: 'id'
+      foreignKey: 'role_id',
     });
     User.belongsTo(models.Level, {
       as: 'level',
-      foreignKey: {
-        name: 'level_id',
-        allowNull: true,
-      },
+      foreignKey: 'level_id',
     });
     User.belongsTo(models.Position, {
       as: 'position',
-      foreignKey: {
-        name: 'position_id',
-        allowNull: true,
-      },
+      foreignKey: 'position_id',
     });
 
     // Define associations here

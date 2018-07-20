@@ -1,4 +1,4 @@
-const logger = require('./logger');
+const debug = require('debug')('sequelize');
 const Sequelize = require('sequelize');
 const { Op } = Sequelize;
 const operatorsAliases = {
@@ -43,7 +43,7 @@ module.exports = function (app) {
   const sequelize = new Sequelize(database, username, password, {
     host: host || 'localhost',
     dialect: 'postgres',
-    logging: sql => logger.debug(sql),
+    logging: sql => debug(sql),
     operatorsAliases,
     define: {
       freezeTableName: true

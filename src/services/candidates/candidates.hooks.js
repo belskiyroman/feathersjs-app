@@ -6,21 +6,27 @@ const {
   convertToPlain,
   deleteForeignKeys,
   includeAssociations,
+  candidateCreate,
 } = require('../../hooks');
 
 module.exports = {
   before: {
     all: [],
-    find: [],
-    get: [],
+    find: [
+      includeAssociations(),
+    ],
+    get: [
+      includeAssociations(),
+    ],
     create: [
-      includeAssociations({ all: true }),
+      candidateCreate(),
+      includeAssociations({ include: ['skills', 'profiles'] }),
     ],
     update: [
-      includeAssociations({ all: true }),
+      includeAssociations({ include: ['skills', 'profiles'] }),
     ],
     patch: [
-      includeAssociations({ all: true }),
+      includeAssociations({ include: ['skills', 'profiles'] }),
     ],
     remove: [
       acl({
@@ -33,7 +39,7 @@ module.exports = {
     all: [
       ignoreNativeCall(
         convertToPlain(),
-        deleteForeignKeys()
+        // deleteForeignKeys()
       )
     ],
     find: [],

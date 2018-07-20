@@ -19,7 +19,9 @@ module.exports = function (options = { all: false, raw: false, include: [] }) {
       delete params.query.include;
     }
 
-    params.sequelize = { raw, include };
+    params.sequelize = params.sequelize
+      ? { ...params.sequelize, raw, include: [...params.sequelize.include, include] }
+      : { raw, include };
     return context;
   };
 };

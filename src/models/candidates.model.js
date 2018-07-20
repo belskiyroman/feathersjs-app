@@ -61,6 +61,36 @@ module.exports = function (app) {
       field: 'updated_at',
       type: DataTypes.DATE,
     },
+    companyLocationId: {
+      field: 'company_location_id',
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    positionId: {
+      field: 'position_id',
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    statusId: {
+      field: 'status_id',
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    currencyId: {
+      field: 'currency_id',
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    sourceId: {
+      field: 'source_id',
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    levelId: {
+      field: 'level_id',
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   }, {
     tableName: 'candidates',
     underscoredAll: true,
@@ -85,6 +115,12 @@ module.exports = function (app) {
   // eslint-disable-next-line no-unused-vars
   Candidate.associate = function (models) {
 
+    Candidate.belongsToMany(models.User, {
+      as: 'connectedUsers',
+      through: models.CandidatesUsers,
+      foreignKey: 'candidate_id',
+      otherKey: 'user_id',
+    });
     Candidate.belongsToMany(models.InteractionType, {
       as: 'interactions',
       through: models.CandidatesInteractions,
@@ -98,55 +134,36 @@ module.exports = function (app) {
       foreignKey: 'candidate_id',
       otherKey: 'skill_id',
     });
-    Candidate.belongsTo(models.CompanyLocation, {
-      as: 'location',
-      foreignKey: {
-        name: 'company_location_id',
-        allowNull: false
-      }
-    });
-    Candidate.belongsTo(models.Position, {
-      as: 'position',
-      foreignKey: {
-        name: 'position_id',
-        allowNull: false
-      }
-    });
-    Candidate.belongsTo(models.Status, {
-      as: 'status',
-      foreignKey: {
-        name: 'status_id',
-        allowNull: false
-      }
-    });
-    Candidate.belongsTo(models.Currency, {
-      as: 'currency',
-      foreignKey: {
-        name: 'currency_id',
-        allowNull: false
-      }
-    });
-    Candidate.belongsTo(models.Source, {
-      as: 'source',
-      foreignKey: {
-        name: 'source_id',
-        allowNull: false
-      }
-    });
-    Candidate.belongsTo(models.Level, {
-      as: 'level',
-      foreignKey: {
-        name: 'level_id',
-        allowNull: false
-      }
-    });
     Candidate.hasMany(models.CandidatesPublicProfile, {
       as: 'profiles',
       foreignKey: {
         name: 'candidate_id',
-        allowNull: false
       },
       onDelete: 'CASCADE',
+    });
+    Candidate.belongsTo(models.CompanyLocation, {
+      as: 'location',
+      foreignKey: 'company_location_id',
+    });
+    Candidate.belongsTo(models.Position, {
+      as: 'position',
+      foreignKey: 'position_id',
+    });
+    Candidate.belongsTo(models.Status, {
+      as: 'status',
+      foreignKey: 'status_id',
+    });
+    Candidate.belongsTo(models.Currency, {
+      as: 'currency',
+      foreignKey: 'currency_id',
+    });
+    Candidate.belongsTo(models.Source, {
+      as: 'source',
+      foreignKey: 'source_id',
+    });
+    Candidate.belongsTo(models.Level, {
+      as: 'level',
+      foreignKey: 'level_id',
     });
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/

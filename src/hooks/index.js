@@ -11,6 +11,7 @@ const oauthHandler = require('./oauth-handler');
 const oauthLogin = require('./oauth-login');
 const validate = require('./validate');
 const mapToSchema = require('./map-to-schema');
+const candidateCreate = require('./candidate-create');
 
 module.exports = {
   acl,
@@ -26,4 +27,5 @@ module.exports = {
   oauthLogin,
   validate,
   mapToSchema,
+  candidateCreate,
 };

@@ -58,7 +58,7 @@ module.exports = {
       ignoreNativeCall(
         convertToPlain(),
         protect('password', 'googleId'),
-        deleteForeignKeys()
+        // deleteForeignKeys()
       ),
     ],
     find: [],
